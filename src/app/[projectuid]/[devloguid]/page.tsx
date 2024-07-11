@@ -4,10 +4,10 @@ import { notFound } from "next/navigation";
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
-import { createClient } from "@/prismicio";
+import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
 
-type Params = { uid: string };
+type Params = { devloguid: string };
 
 /**
  * This page renders a Prismic Document dynamically based on the URL.
@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = createClient();
   const page = await client
-    .getByUID("page", params.uid)
+    .getByUID("devlogpage", params.devloguid)
     .catch(() => notFound());
 
   return {
@@ -40,7 +40,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: Params }) {
   const client = createClient();
   const page = await client
-    .getByUID("page", params.uid)
+    .getByUID("devlogpage", params.devloguid)
     .catch(() => notFound());
 
   return <SliceZone slices={page.data.slices} components={components} />;
@@ -52,14 +52,17 @@ export async function generateStaticParams() {
   /**
    * Query all Documents from the API, except the homepage.
    */
-  const pages = await client.getAllByType("page", {
-    predicates: [prismic.filter.not("my.page.uid", "home")],
-  });
+  const pages = await client.getAllByType("devlogpage" /*, {
+    predicates: [prismic.filter.not("my.page.data.projectuid", "home")],
+  }*/);
 
   /**
    * Define a path for every Document.
    */
   return pages.map((page) => {
-    return { uid: page.uid };
+    return {
+      projectuid: page.data.projectuid.uid,
+      devloguid: page.uid,
+    };
   });
 }
