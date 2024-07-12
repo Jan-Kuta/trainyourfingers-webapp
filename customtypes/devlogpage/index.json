@@ -20,14 +20,6 @@
           "customtypes": ["projectpage"]
         }
       },
-      "devloguid": {
-        "type": "Link",
-        "config": {
-          "label": "Devlog",
-          "select": "document",
-          "customtypes": ["devlogpage"]
-        }
-      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
