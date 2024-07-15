@@ -11,26 +11,15 @@ type DevlogpageDocumentDataSlicesSlice = RichTextSlice;
  */
 interface DevlogpageDocumentData {
   /**
-   * ProjectUid field in *Devlog Page*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: devlogpage.projectuid
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  projectuid: prismic.KeyTextField;
-
-  /**
    * Project field in *Devlog Page*
    *
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
-   * - **API ID Path**: devlogpage.project
+   * - **API ID Path**: devlogpage.projectuid
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  project: prismic.ContentRelationshipField<"projectpage">;
+  projectuid: prismic.ContentRelationshipField<"projectpage">;
 
   /**
    * Slice Zone field in *Devlog Page*

@@ -5,6 +5,7 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import { PageHeader } from '@/components/PageHeader'
 
 // This component renders your homepage.
 //
@@ -31,5 +32,10 @@ export default async function Index() {
   const client = createClient();
   const home = await client.getSingle("homepage");
 
-  return <SliceZone slices={home.data.slices} components={components} />;
+  return (
+    <>
+      <PageHeader title="TrainYourFingers" />
+      <SliceZone slices={home.data.slices} components={components} />
+    </>
+  );
 }

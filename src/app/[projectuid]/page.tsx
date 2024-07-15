@@ -6,6 +6,7 @@ import * as prismic from "@prismicio/client";
 
 import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
+import { PageHeader } from '@/components/PageHeader'
 
 type Params = { projectuid: string };
 
@@ -43,7 +44,12 @@ export default async function Page({ params }: { params: Params }) {
     .getByUID("projectpage", params.projectuid)
     .catch(() => notFound());
 
-  return <SliceZone slices={page.data.slices} components={components} />;
+  return (
+    <>
+      <PageHeader title="TrainYourFingers" />
+      <SliceZone slices={page.data.slices} components={components} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
