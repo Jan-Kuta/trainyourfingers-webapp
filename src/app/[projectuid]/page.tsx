@@ -7,6 +7,8 @@ import * as prismic from "@prismicio/client";
 import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
+import { CardProps } from '@/components/Card'
+import { LinkCardList } from '@/components/LinkCardList'
 
 type Params = { projectuid: string };
 
@@ -44,10 +46,22 @@ export default async function Page({ params }: { params: Params }) {
     .getByUID("projectpage", params.projectuid)
     .catch(() => notFound());
 
+  const devlogs = await client.getAllByType("devlogpage");
+
+  const links:CardProps[] = devlogs.filter(log => log.data.projectuid.uid === params.projectuid).map(log => ({
+    href: `/${log.data.projectuid.uid}/${log.uid}`,
+    title: (log.data.meta_title || "").toString(),
+    description: (log.data.meta_description || "").toString(),
+    imageUrl: log.data.meta_image?.url || undefined
+  }))
+
   return (
     <>
       <PageHeader title="TrainYourFingers" />
       <SliceZone slices={page.data.slices} components={components} />
+      <div className="my-8">
+        <LinkCardList links={links} title="Project devlogs" />
+      </div>
     </>
   );
 }

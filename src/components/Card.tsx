@@ -9,7 +9,7 @@ export type CardProps = {
 };
 
 export const Card = ({ imageUrl, description, title, href }: CardProps) => (
-  <div className="card card-compact bg-base-100 w-96 shadow-xl">
+  <div className="card card-compact bg-base-100 max-w-96 shadow-xl">
     {imageUrl && (
       <figure>
         <Image src={imageUrl} alt={title} />
