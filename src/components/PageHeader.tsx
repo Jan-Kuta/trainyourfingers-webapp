@@ -9,6 +9,6 @@ export const PageHeader = ({ title }: Props) => (
         <h1 className="sm:text-5xl text-3xl font-bold text-center">{title}</h1>
       </Link>
     </div>
-    <div className="sm:h-20 h-16" />
+    <div className="sm:h-28 h-24" />
   </>
 );
