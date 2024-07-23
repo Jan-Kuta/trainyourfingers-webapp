@@ -12,6 +12,14 @@
         },
         "type": "UID"
       },
+      "devloguid": {
+        "type": "Link",
+        "config": {
+          "label": "Devlog",
+          "select": "document",
+          "customtypes": ["devlogpage"]
+        }
+      },
       "projectuid": {
         "type": "Link",
         "config": {

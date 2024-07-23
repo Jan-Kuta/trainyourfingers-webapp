@@ -1,7 +1,11 @@
 import * as prismic from "@prismicio/client";
 import * as prismicNext from "@prismicio/next";
 import sm from "../slicemachine.config.json";
-import { DevlogpageDocument, HomepageDocument, ProjectpageDocument } from '../prismicio-types'
+import {
+  DevlogpageDocument,
+  HomepageDocument,
+  ProjectpageDocument,
+} from "../prismicio-types";
 
 /**
  * The project's Prismic repository name.
@@ -10,31 +14,35 @@ export const repositoryName =
   process.env.NEXT_PUBLIC_PRISMIC_ENVIRONMENT || sm.repositoryName;
 
 function isHomepage(value: prismic.PrismicDocument): value is HomepageDocument {
-  return value.type === 'homepage'
+  return value.type === "homepage";
 }
 
-function isProjectpage(value: prismic.PrismicDocument): value is ProjectpageDocument {
-  return value.type === 'projectpage'
+function isProjectpage(
+  value: prismic.PrismicDocument,
+): value is ProjectpageDocument {
+  return value.type === "projectpage";
 }
 
-function isDevlogpage(value: prismic.PrismicDocument): value is DevlogpageDocument {
-  return value.type === 'devlogpage'
+function isDevlogpage(
+  value: prismic.PrismicDocument,
+): value is DevlogpageDocument {
+  return value.type === "devlogpage";
 }
 
-function linkResolver (doc: prismic.PrismicDocument) {
+function linkResolver(doc: prismic.PrismicDocument) {
   if (isHomepage(doc)) {
-    return '/'
+    return "/";
   }
 
   if (isProjectpage(doc)) {
-    return `/${doc.uid}`
+    return `/${doc.uid}`;
   }
 
   if (isDevlogpage(doc)) {
-    return `/${doc.data.projectuid}/${doc.uid}`
+    return `/${doc.data.projectuid}/${doc.uid}`;
   }
 
-  return null
+  return null;
 }
 
 /**
@@ -42,8 +50,16 @@ function linkResolver (doc: prismic.PrismicDocument) {
  */
 export const routes: prismic.ClientConfig["routes"] = [
   { type: "homepage", path: "/" },
-  { type: "projectpage", path: "/:projectuid", resolvers: { projectuid: "projectuid" } },
-  { type: "devlogpage", path: "/:projectuid/:devloguid", resolvers: { projectuid: "projectuid", devloguid: "devloguid" } },
+  {
+    type: "projectpage",
+    path: "/:projectuid",
+    resolvers: { projectuid: "projectuid" },
+  },
+  {
+    type: "devlogpage",
+    path: "/:projectuid/:devloguid",
+    resolvers: { projectuid: "projectuid", devloguid: "devloguid" },
+  },
 ];
 
 /**

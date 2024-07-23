@@ -1,19 +1,18 @@
-import Link from 'next/link'
+import Link from "next/link";
+import Image from "next/image";
 
 export type CardProps = {
-  href: string
-  title: string
-  description: string
-  imageUrl?: string
-}
+  href: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+};
 
-export const Card = ({imageUrl, description, title, href}: CardProps) => (
+export const Card = ({ imageUrl, description, title, href }: CardProps) => (
   <div className="card card-compact bg-base-100 w-96 shadow-xl">
     {imageUrl && (
       <figure>
-        <img
-          src={imageUrl}
-          alt={title} />
+        <Image src={imageUrl} alt={title} />
       </figure>
     )}
     <div className="card-body">
@@ -26,4 +25,4 @@ export const Card = ({imageUrl, description, title, href}: CardProps) => (
       </div>
     </div>
   </div>
-)
+);

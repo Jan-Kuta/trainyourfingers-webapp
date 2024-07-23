@@ -10,7 +10,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="max-w-screen-lg mx-auto p-4">{children}</div>
+        <div className="bg-slate-100 h-screen">
+          <div className="max-w-screen-lg mx-auto p-4">{children}</div>
+        </div>
       </body>
       <PrismicPreview repositoryName={repositoryName} />
     </html>

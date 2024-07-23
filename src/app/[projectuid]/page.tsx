@@ -6,7 +6,7 @@ import * as prismic from "@prismicio/client";
 
 import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
-import { PageHeader } from '@/components/PageHeader'
+import { PageHeader } from "@/components/PageHeader";
 
 type Params = { projectuid: string };
 
@@ -25,7 +25,7 @@ export async function generateMetadata({
     .catch(() => notFound());
 
   return {
-    title: prismic.asText(page.data.meta_title),
+    title: page.data.meta_title,
     description: page.data.meta_description,
     openGraph: {
       title: page.data.meta_title || undefined,

@@ -12,6 +12,14 @@
         },
         "type": "UID"
       },
+      "projectuid": {
+        "type": "Link",
+        "config": {
+          "label": "Project",
+          "select": "document",
+          "customtypes": ["projectpage"]
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

@@ -5,9 +5,9 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { PageHeader } from '@/components/PageHeader'
-// import { LinkCardList } from '@/components/LinkCardList'
-// import { CardProps } from '@/components/Card'
+import { PageHeader } from "@/components/PageHeader";
+import { LinkCardList } from '@/components/LinkCardList'
+import { CardProps } from '@/components/Card'
 
 // This component renders your homepage.
 //
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const home = await client.getSingle("homepage");
 
   return {
-    title: prismic.asText(home.data.meta_title),
+    title: home.data.meta_title,
     description: home.data.meta_description,
     openGraph: {
       title: home.data.meta_title ?? undefined,
@@ -34,23 +34,25 @@ export default async function Index() {
   const client = createClient();
   const home = await client.getSingle("homepage");
 
-  // const projects = await client.getAllByType("projectpage");
-  //
-  // /**
-  //  * Define a Card for every project.
-  //  */
-  // const links: CardProps[] = projects.map((page) => ({
-  //     href: `/${page.uid}`,
-  //     title: page.data.meta_title,
-  //     description: page.data.meta_description,
-  //     imageUrl: page.data.meta_image?.url
-  //   }))
+  const projects = await client.getAllByType("projectpage");
+
+  /**
+   * Define a Card for every project.
+   */
+  const links: CardProps[] = projects.map((page) => ({
+      href: `/${page.uid}`,
+      title: (page.data.meta_title || "").toString(),
+      description: (page.data.meta_description || "").toString(),
+      imageUrl: page.data.meta_image?.url || undefined
+    }))
 
   return (
     <>
       <PageHeader title="TrainYourFingers" />
       <SliceZone slices={home.data.slices} components={components} />
-      {/*<LinkCardList links={links} title="Our projects" />*/}
+      <div className="my-8">
+        <LinkCardList links={links} title="Our projects" />
+      </div>
     </>
   );
 }

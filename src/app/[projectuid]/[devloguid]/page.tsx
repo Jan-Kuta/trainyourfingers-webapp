@@ -6,7 +6,9 @@ import * as prismic from "@prismicio/client";
 
 import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
-import { PageHeader } from '@/components/PageHeader'
+import { PageHeader } from "@/components/PageHeader";
+import { PrismicDocument } from '@prismicio/types'
+import { ProjectpageDocument } from '../../../../prismicio-types'
 
 type Params = { devloguid: string };
 
@@ -25,7 +27,7 @@ export async function generateMetadata({
     .catch(() => notFound());
 
   return {
-    title: prismic.asText(page.data.meta_title),
+    title: page.data.meta_title,
     description: page.data.meta_description,
     openGraph: {
       title: page.data.meta_title || undefined,
@@ -58,16 +60,18 @@ export async function generateStaticParams() {
   /**
    * Query all Documents from the API, except the homepage.
    */
-  const pages = await client.getAllByType("devlogpage" /*, {
+  const pages = await client.getAllByType(
+    "devlogpage" /*, {
     predicates: [prismic.filter.not("my.page.data.projectuid", "home")],
-  }*/);
+  }*/,
+  );
 
   /**
    * Define a path for every Document.
    */
   return pages.map((page) => {
     return {
-      projectuid: page.data.projectuid.uid,
+      projectuid: (page.data.projectuid as any)?.uid,
       devloguid: page.uid,
     };
   });

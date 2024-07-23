@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-type Props = { title: string }
+type Props = { title: string };
 
 export const PageHeader = ({ title }: Props) => (
   <div className="center">
@@ -8,4 +8,4 @@ export const PageHeader = ({ title }: Props) => (
       <h1 className="sm:text-5xl text-3xl font-bold mb-8">{title}</h1>
     </Link>
   </div>
-)
+);
