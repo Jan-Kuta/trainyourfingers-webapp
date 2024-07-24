@@ -1,5 +1,6 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "../../styles/globals.css";
 
 export default function RootLayout({
@@ -11,6 +12,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="bg-slate-100 min-h-screen relative">
+          <SpeedInsights />
           <div className="max-w-screen-lg mx-auto p-4">{children}</div>
         </div>
       </body>
