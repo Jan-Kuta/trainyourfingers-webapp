@@ -4,7 +4,7 @@ type Props = { title: string };
 
 export const PageHeader = ({ title }: Props) => (
   <>
-    <div className="fixed top-0 left-0 right-0 bg-slate-200 dark:bg-black">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-slate-200 dark:bg-black">
       <Link href="/">
         <h1 className="sm:text-5xl text-3xl font-bold text-center">{title}</h1>
       </Link>
