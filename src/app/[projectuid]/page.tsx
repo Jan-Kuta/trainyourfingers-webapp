@@ -9,6 +9,7 @@ import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
 import { CardProps } from '@/components/Card'
 import { LinkCardList } from '@/components/LinkCardList'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 type Params = { projectuid: string };
 
@@ -58,6 +59,7 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <>
       <PageHeader title="TrainYourFingers" />
+      <Breadcrumbs links={[{ title: "Home", href: "/"}, { title: params.projectuid }]} />
       <SliceZone slices={page.data.slices} components={components} />
       <div className="my-8">
         <LinkCardList links={links} title="Project devlogs" />

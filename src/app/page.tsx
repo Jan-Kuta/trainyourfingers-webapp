@@ -8,6 +8,7 @@ import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
 import { LinkCardList } from '@/components/LinkCardList'
 import { CardProps } from '@/components/Card'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 // This component renders your homepage.
 //
@@ -49,6 +50,7 @@ export default async function Index() {
   return (
     <>
       <PageHeader title="TrainYourFingers" />
+      <Breadcrumbs links={[{title: "Home"}]} />
       <SliceZone slices={home.data.slices} components={components} />
       <div className="my-8">
         <LinkCardList links={links} title="Our projects" />

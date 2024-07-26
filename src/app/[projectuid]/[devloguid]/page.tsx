@@ -9,8 +9,9 @@ import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
 import { PrismicDocument } from '@prismicio/types'
 import { ProjectpageDocument } from '../../../../prismicio-types'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
-type Params = { devloguid: string };
+type Params = { devloguid: string, projectuid: string };
 
 /**
  * This page renders a Prismic Document dynamically based on the URL.
@@ -49,6 +50,7 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <>
       <PageHeader title="TrainYourFingers" />
+      <Breadcrumbs links={[{ title: "Home", href: "/"}, { title: params.projectuid, href: `/${params.projectuid}`}, { title: params.devloguid }]} />
       <SliceZone slices={page.data.slices} components={components} />
     </>
   );
