@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-slate-100 min-h-screen relative">
+        <div className="bg-slate-100 dark:bg-zinc-900 min-h-screen relative">
           <SpeedInsights />
           <div className="max-w-screen-lg mx-auto p-4">{children}</div>
         </div>
