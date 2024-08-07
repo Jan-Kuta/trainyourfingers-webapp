@@ -11,6 +11,17 @@ type DevlogpageDocumentDataSlicesSlice = RichTextSlice;
  */
 interface DevlogpageDocumentData {
   /**
+   * Devlog field in *Devlog Page*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: devlogpage.devloguid
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  devloguid: prismic.ContentRelationshipField<"devlogpage">;
+
+  /**
    * Project field in *Devlog Page*
    *
    * - **Field Type**: Content Relationship
@@ -80,7 +91,7 @@ export type DevlogpageDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice = RichTextSlice;
+type HomepageDocumentDataSlicesSlice = TeamSectionSlice | RichTextSlice;
 
 /**
  * Content for HomePage documents
@@ -145,12 +156,23 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-type ProjectpageDocumentDataSlicesSlice = RichTextSlice;
+type ProjectpageDocumentDataSlicesSlice = TeamSectionSlice | RichTextSlice;
 
 /**
  * Content for Project Page documents
  */
 interface ProjectpageDocumentData {
+  /**
+   * Project field in *Project Page*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: projectpage.projectuid
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  projectuid: prismic.ContentRelationshipField<"projectpage">;
+
   /**
    * Slice Zone field in *Project Page*
    *
@@ -260,6 +282,108 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Item in *TeamSection → Default → Primary → Members*
+ */
+export interface TeamSectionSliceDefaultPrimaryMembersItem {
+  /**
+   * Image field in *TeamSection → Default → Primary → Members*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.members[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Name field in *TeamSection → Default → Primary → Members*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.members[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Role field in *TeamSection → Default → Primary → Members*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.members[].role
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  role: prismic.KeyTextField;
+
+  /**
+   * Description field in *TeamSection → Default → Primary → Members*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.members[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *TeamSection → Default → Primary*
+ */
+export interface TeamSectionSliceDefaultPrimary {
+  /**
+   * Header field in *TeamSection → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.header
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  header: prismic.RichTextField;
+
+  /**
+   * Members field in *TeamSection → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: team_section.default.primary.members[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  members: prismic.GroupField<
+    Simplify<TeamSectionSliceDefaultPrimaryMembersItem>
+  >;
+}
+
+/**
+ * Default variation for TeamSection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TeamSectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TeamSectionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TeamSection*
+ */
+type TeamSectionSliceVariation = TeamSectionSliceDefault;
+
+/**
+ * TeamSection Shared Slice
+ *
+ * - **API ID**: `team_section`
+ * - **Description**: TeamSection
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TeamSectionSlice = prismic.SharedSlice<
+  "team_section",
+  TeamSectionSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -284,6 +408,11 @@ declare module "@prismicio/client" {
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      TeamSectionSlice,
+      TeamSectionSliceDefaultPrimaryMembersItem,
+      TeamSectionSliceDefaultPrimary,
+      TeamSectionSliceVariation,
+      TeamSectionSliceDefault,
     };
   }
 }
