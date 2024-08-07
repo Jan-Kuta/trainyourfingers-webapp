@@ -1,5 +1,6 @@
 import { Content } from "@prismicio/client";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
+import { PrismicNextImage } from '@prismicio/next'
 
 /**
  * Props for `TeamSection`.
@@ -19,7 +20,7 @@ const TeamSection = ({ slice }: TeamSectionProps): JSX.Element => {
         <PrismicRichText field={slice.primary.header} />
         <div>
           {slice.primary.members.map((member) => (
-            <div>
+            <div key={JSON.stringify(member)}>
               <PrismicNextImage field={member.image} />
               <div>{member.name}</div>
               <div>{member.role}</div>
