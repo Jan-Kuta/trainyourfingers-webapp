@@ -5,6 +5,7 @@ import {
   DevlogpageDocument,
   HomepageDocument,
   ProjectpageDocument,
+  SimplepageDocument,
 } from "../prismicio-types";
 
 /**
@@ -29,17 +30,27 @@ function isDevlogpage(
   return value.type === "devlogpage";
 }
 
+function isSimplepage(
+  value: prismic.PrismicDocument,
+): value is SimplepageDocument {
+  return value.type === "simplepage";
+}
+
 function linkResolver(doc: prismic.PrismicDocument) {
   if (isHomepage(doc)) {
     return "/";
   }
 
   if (isProjectpage(doc)) {
-    return `/${doc.uid}`;
+    return `/projects/${doc.uid}`;
   }
 
   if (isDevlogpage(doc)) {
-    return `/${doc.data.projectuid}/${doc.uid}`;
+    return `/projects/${doc.data.projectuid}/${doc.uid}`;
+  }
+
+  if (isSimplepage(doc)) {
+    return `/simple-pages/${doc.uid}`;
   }
 
   return null;
