@@ -4,12 +4,9 @@ import { notFound } from "next/navigation";
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
-import { createClient, routes } from "@/prismicio";
+import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
-import { CardProps } from '@/components/Card'
-import { LinkCardList } from '@/components/LinkCardList'
-import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 type Params = { pageuid: string };
 
@@ -24,7 +21,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const client = createClient();
   const page = await client
-    .getByUID("projectpage", params.pageuid)
+    .getByUID("simplepage", params.pageuid)
     .catch(() => notFound());
 
   return {
