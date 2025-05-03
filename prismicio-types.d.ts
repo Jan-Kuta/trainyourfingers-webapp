@@ -232,7 +232,10 @@ export type ProjectpageDocument<Lang extends string = string> =
     Lang
   >;
 
-type SimplepageDocumentDataSlicesSlice = TeamSectionSlice | RichTextSlice;
+type SimplepageDocumentDataSlicesSlice =
+  | LeaderboardSlice
+  | TeamSectionSlice
+  | RichTextSlice;
 
 /**
  * Content for Simple Page documents

@@ -17,6 +17,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "leaderboard": {
+              "type": "SharedSlice"
+            },
             "team_section": {
               "type": "SharedSlice"
             },
