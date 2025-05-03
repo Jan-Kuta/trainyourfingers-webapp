@@ -41,7 +41,7 @@ export default async function Index() {
    * Define a Card for every project.
    */
   const links: CardProps[] = projects.map((page) => ({
-      href: `/${page.uid}`,
+      href: `/projects/${page.uid}`,
       title: (page.data.meta_title || "").toString(),
       description: (page.data.meta_description || "").toString(),
       imageUrl: page.data.meta_image?.url || undefined

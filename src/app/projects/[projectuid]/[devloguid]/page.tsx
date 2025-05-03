@@ -8,7 +8,7 @@ import { createClient, routes } from "@/prismicio";
 import { components } from "@/slices";
 import { PageHeader } from "@/components/PageHeader";
 import { PrismicDocument } from '@prismicio/types'
-import { ProjectpageDocument } from '../../../../prismicio-types'
+import { ProjectpageDocument } from '../../../../../prismicio-types'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 type Params = { devloguid: string, projectuid: string };
@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Params }) {
   return (
     <>
       <PageHeader title="TrainYourFingers" />
-      <Breadcrumbs links={[{ title: "Home", href: "/"}, { title: params.projectuid, href: `/${params.projectuid}`}, { title: params.devloguid }]} />
+      <Breadcrumbs links={[{ title: "Home", href: "/"}, { title: params.projectuid, href: `/projects/${params.projectuid}`}, { title: params.devloguid }]} />
       <SliceZone slices={page.data.slices} components={components} />
     </>
   );

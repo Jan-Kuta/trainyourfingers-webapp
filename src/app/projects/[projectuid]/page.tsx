@@ -50,7 +50,7 @@ export default async function Page({ params }: { params: Params }) {
   const devlogs = await client.getAllByType("devlogpage");
 
   const links:CardProps[] = devlogs.filter(log => (log.data.projectuid as any)?.uid === params.projectuid).map(log => ({
-    href: `/${(log.data.projectuid as any)?.uid}/${log.uid}`,
+    href: `/projects/${(log.data.projectuid as any)?.uid}/${log.uid}`,
     title: (log.data.meta_title || "").toString(),
     description: (log.data.meta_description || "").toString(),
     imageUrl: log.data.meta_image?.url || undefined
