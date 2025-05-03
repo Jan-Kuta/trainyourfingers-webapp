@@ -232,10 +232,106 @@ export type ProjectpageDocument<Lang extends string = string> =
     Lang
   >;
 
+type SimplepageDocumentDataSlicesSlice = TeamSectionSlice | RichTextSlice;
+
+/**
+ * Content for Simple Page documents
+ */
+interface SimplepageDocumentData {
+  /**
+   * Slice Zone field in *Simple Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: simplepage.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<SimplepageDocumentDataSlicesSlice> /**
+   * Meta Title field in *Simple Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: simplepage.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Simple Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: simplepage.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Simple Page*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: simplepage.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Simple Page document from Prismic
+ *
+ * - **API ID**: `simplepage`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type SimplepageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<SimplepageDocumentData>,
+    "simplepage",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | DevlogpageDocument
   | HomepageDocument
-  | ProjectpageDocument;
+  | ProjectpageDocument
+  | SimplepageDocument;
+
+/**
+ * Default variation for LeaderboardTop10 Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type LeaderboardSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *LeaderboardTop10*
+ */
+type LeaderboardSliceVariation = LeaderboardSliceDefault;
+
+/**
+ * LeaderboardTop10 Shared Slice
+ *
+ * - **API ID**: `leaderboard`
+ * - **Description**: Leaderboard
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type LeaderboardSlice = prismic.SharedSlice<
+  "leaderboard",
+  LeaderboardSliceVariation
+>;
 
 /**
  * Primary content in *RichText → Default → Primary*
@@ -403,7 +499,13 @@ declare module "@prismicio/client" {
       ProjectpageDocument,
       ProjectpageDocumentData,
       ProjectpageDocumentDataSlicesSlice,
+      SimplepageDocument,
+      SimplepageDocumentData,
+      SimplepageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      LeaderboardSlice,
+      LeaderboardSliceVariation,
+      LeaderboardSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

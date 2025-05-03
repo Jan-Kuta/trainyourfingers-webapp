@@ -63,10 +63,10 @@ export const routes: prismic.ClientConfig["routes"] = [
 ];
 
 /**
- * Creates a Prismic client for the project's repository. The client is used to
+ * Creates a Prismic lib for the project's repository. The lib is used to
  * query content from the Prismic API.
  *
- * @param config - Configuration for the Prismic client.
+ * @param config - Configuration for the Prismic lib.
  */
 export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
   const client = prismic.createClient(sm.apiEndpoint || repositoryName || "", {

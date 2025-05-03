@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 
 export const components = {
+  leaderboard: dynamic(() => import("./LeaderboardTop10")),
   rich_text: dynamic(() => import("./RichText")),
   team_section: dynamic(() => import("./TeamSection")),
 };

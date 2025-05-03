@@ -1,0 +1,18 @@
+{
+  "id": "leaderboard",
+  "type": "SharedSlice",
+  "name": "LeaderboardTop10",
+  "description": "Leaderboard",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    }
+  ]
+}
