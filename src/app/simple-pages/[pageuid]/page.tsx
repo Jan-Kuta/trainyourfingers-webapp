@@ -44,10 +44,8 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: Params }) {
   const client = createClient();
   const page = await client
-    .getByUID("projectpage", params.pageuid)
+    .getByUID("simplepage", params.pageuid)
     .catch(() => notFound());
-
-  const devlogs = await client.getAllByType("devlogpage");
 
   return (
     <>
