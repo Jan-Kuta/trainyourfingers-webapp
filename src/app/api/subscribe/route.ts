@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   try {
     await pool.sql`
       INSERT INTO mailing_list (steam_id, email, consent_given, signed_at, consent_ip)
-      VALUES (${steam_id}, ${email}, ${consent}, NOW(), ${ip})
+      VALUES (${steam_id}, ${email}, ${consent}, NOW(), ${ip}::inet)
       ON CONFLICT (steam_id)
       DO UPDATE SET 
         email = EXCLUDED.email,
