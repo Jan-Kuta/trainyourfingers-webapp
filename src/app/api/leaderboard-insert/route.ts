@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     await pool.sql`
 INSERT INTO leaderboard_entries (steam_id, name, top_score)
-VALUES ('${steam_id}', '${username}', ${score})
+VALUES (${steam_id}, ${username}, ${score})
 ON CONFLICT (steam_id)
 DO UPDATE SET
     top_score = GREATEST(leaderboard_entries.top_score, EXCLUDED.top_score),
