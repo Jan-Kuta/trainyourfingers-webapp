@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         top_score,
         updated_at,
         RANK() OVER (ORDER BY top_score DESC)  AS rank
+    FROM leaderboard_entries
   ) ranked
   WHERE steam_id = ${steam_id};
     `
