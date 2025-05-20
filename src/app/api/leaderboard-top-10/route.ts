@@ -13,7 +13,7 @@ export async function GET(req: Request) {
   FROM leaderboard_entries le JOIN mailing_list ml
   ON le.steam_id = ml.steam_id
   WHERE ml.email IS NOT NULL AND ml.email <> ''
-  ORDER BY le.top_score DESC
+  ORDER BY le.top_score DESC, le.updated_at ASC
   LIMIT 10;
     `
 
