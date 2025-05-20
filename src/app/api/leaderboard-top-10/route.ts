@@ -4,9 +4,11 @@ import { NextResponse } from 'next/server'
 export async function GET(req: Request) {
   try {
     const { rows } = await pool.sql`
-  SELECT name, top_score
-  FROM leaderboard_entries
-  ORDER BY top_score DESC
+  SELECT le.steam_id, le.name, le.top_score
+  FROM leaderboard_entries le JOIN mailing_list ml
+  ON le.steam_id = ml.steam_id
+  WHERE ml.email IS NOT NULL AND ml.email <> ''
+  ORDER BY le.top_score DESC
   LIMIT 10;
     `
 
