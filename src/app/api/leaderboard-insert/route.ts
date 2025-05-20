@@ -10,8 +10,9 @@ INSERT INTO leaderboard_entries (steam_id, name, top_score)
 VALUES (${steam_id}, ${username}, ${score})
 ON CONFLICT (steam_id)
 DO UPDATE SET
-    top_score = GREATEST(leaderboard_entries.top_score, EXCLUDED.top_score),
-    updated_at = NOW();
+    top_score = EXCLUDED.top_score,
+    updated_at = NOW()
+WHERE leaderboard_entries.top_score < EXCLUDED.top_score;
       `;
   } catch (error) {
     console.error('Database error: ', error)
