@@ -4,7 +4,12 @@ import { NextResponse } from 'next/server'
 export async function GET(req: Request) {
   try {
     const { rows } = await pool.sql`
-  SELECT le.steam_id, le.name, le.top_score
+  SELECT
+   ROW_NUMBER() OVER (ORDER BY le.top_score DESC) AS rank,
+   le.steam_id,
+   le.name,
+   le.top_score,
+   le.updated_at
   FROM leaderboard_entries le JOIN mailing_list ml
   ON le.steam_id = ml.steam_id
   WHERE ml.email IS NOT NULL AND ml.email <> ''
