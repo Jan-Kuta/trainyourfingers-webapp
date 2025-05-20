@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         name,
         top_score,
         updated_at,
-        RANK() OVER (ORDER BY top_score DESC)  AS rank,
+        ROW_NUMBER() OVER (ORDER BY top_score DESC)  AS rank,
         COUNT(*) OVER () AS total_players
     FROM leaderboard_entries
     WHERE steam_id = ${steam_id};
