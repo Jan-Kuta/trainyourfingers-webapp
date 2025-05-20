@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         steam_id,
         name,
         top_score,
-        updated_at
+        updated_at,
         RANK() OVER (ORDER BY top_score DESC)  AS rank
   ) ranked
   WHERE steam_id = ${steam_id};
