@@ -1,7 +1,9 @@
 import pool from '@/lib/db'
 import { NextResponse } from 'next/server'
 
-export async function GET(req: Request) {
+export async function POST(req: Request) {
+  const { steam_id } = await req.json()
+
   try {
     const { rows } = await pool.sql`
   SELECT
@@ -9,6 +11,7 @@ export async function GET(req: Request) {
    le.steam_id,
    le.name,
    le.top_score,
+   (le.steam_id = ${steam_id}) AS is_player,
    le.updated_at
   FROM leaderboard_entries le JOIN mailing_list ml
   ON le.steam_id = ml.steam_id
