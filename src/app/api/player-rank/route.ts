@@ -6,15 +6,17 @@ export async function POST(req: Request) {
 
   try {
     const { rows } = await pool.sql`
-    SELECT
-        steam_id,
-        name,
-        top_score,
-        updated_at,
-        RANK() OVER (ORDER BY top_score DESC)  AS rank,
-        COUNT(*) OVER () AS total_players
-    FROM leaderboard_entries
-    WHERE steam_id = ${steam_id};
+    SELECT * FROM(
+      SELECT
+          steam_id,
+          name,
+          top_score,
+          updated_at,
+          RANK() OVER (ORDER BY top_score DESC)  AS rank,
+          COUNT(*) OVER () AS total_players
+      FROM leaderboard_entries
+    ) ranked
+    WHERE ranked.steam_id = ${steam_id};
     `
 
     return NextResponse.json(rows)
