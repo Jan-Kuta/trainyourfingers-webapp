@@ -13,9 +13,7 @@ export async function POST(req: Request) {
    le.top_score,
    (le.steam_id = ${steam_id}) AS is_player,
    le.updated_at
-  FROM leaderboard_entries le JOIN mailing_list ml
-  ON le.steam_id = ml.steam_id
-  WHERE ml.email IS NOT NULL AND ml.email <> ''
+  FROM leaderboard_entries le
   ORDER BY le.top_score DESC, le.updated_at ASC
   LIMIT 10;
     `
